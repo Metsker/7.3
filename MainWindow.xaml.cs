@@ -23,10 +23,7 @@ namespace _7._3
             public int WorkerAge { get; set; }
             public bool? WorkerGenderM { get; set; }
             public bool? WorkerGenderF { get; set; }
-
-            int oldmancount;
-
-            public int IsOld()
+            public int IsOld(int oldmancount)
             {
                 if (WorkerAge >= 65 && WorkerGenderM == true)
                 {
@@ -47,7 +44,7 @@ namespace _7._3
 
             foreach (Worker olds in workers)
             {
-                oldmans += olds.IsOld();
+                oldmans = olds.IsOld(oldmans);
             }
             result.Text = oldmans.ToString();
         }
