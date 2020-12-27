@@ -10,6 +10,9 @@ namespace _7._3
     public partial class MainWindow : Window
     {
         readonly List<Worker> workers = new List<Worker>();
+        string gender = "";
+        int oldmans;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -25,12 +28,11 @@ namespace _7._3
             public bool? WorkerGenderF { get; set; }
             public int IsOld(int oldmancount)
             {
-                if (WorkerAge >= 65 && WorkerGenderM == true)
+                if (WorkerGenderM == true && WorkerAge >= 65)
                 {
                     oldmancount++;
                 }
-
-                else if (WorkerAge >= 60 && WorkerGenderF == true)
+                else if (WorkerGenderF == true && WorkerAge >= 60)
                 {
                     oldmancount++;
                 }
@@ -40,7 +42,7 @@ namespace _7._3
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            int oldmans = 0;
+            oldmans = 0;
 
             foreach (Worker olds in workers)
             {
@@ -53,16 +55,6 @@ namespace _7._3
         {
             try
             {
-                workers.Add(new Worker()
-                {
-                    WorkerName = Name.Text,
-                    WorkerSurname = Surname.Text,
-                    WorkerPosition = Position.Text,
-                    WorkerAge = int.Parse(Age.Text),
-                    WorkerGenderM = Male.IsChecked,
-                    WorkerGenderF = Female.IsChecked,
-                });
-                string gender = "";
                 if (Male.IsChecked == true)
                 {
                     gender = "М";
@@ -71,15 +63,25 @@ namespace _7._3
                 {
                     gender = "Ж";
                 }
-                if (Male.IsChecked == false && Female.IsChecked == false)
+                else
                 {
                     MessageBox.Show("Установите пол");
                 }
-                else
+
+                if (Male.IsChecked == true | Female.IsChecked == true)
                 {
+                    workers.Add(new Worker()
+                    {
+                        WorkerName = Name.Text,
+                        WorkerSurname = Surname.Text,
+                        WorkerPosition = Position.Text,
+                        WorkerAge = int.Parse(Age.Text),
+                        WorkerGenderM = Male.IsChecked,
+                        WorkerGenderF = Female.IsChecked,
+                    });
+
                     Workers.Text += Surname.Text + " " + Age.Text + "y " + gender + Environment.NewLine;
                 }
-
             }
             catch (Exception ex)
             {
